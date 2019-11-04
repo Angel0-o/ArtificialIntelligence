@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +28,7 @@ public class Tablero extends JFrame{
     
     int pathX = 1; //recorre en columnas
     int pathY = 14; //reccorre en filas
+    List<Integer> path = new ArrayList<Integer>();
     private JPanel contentPane;
     
     int [][] laberinto = 
@@ -61,7 +64,7 @@ public class Tablero extends JFrame{
         JButton puntoSalto = new JButton("Regla 1");
         puntoSalto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                generaPuntoSalto(10);
+                generaPuntoSalto(15);
             }
         });
         puntoSalto.setBounds(35, 482, 90, 25);
@@ -88,7 +91,12 @@ public class Tablero extends JFrame{
         JButton resolver = new JButton("Resolver");
         resolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DFS.searchPath(laberinto, 14, 1, 1, 13, 5);
+                //Bien vamos a probar DepthFirst comprobando el primer y el último elemento de la lista de rutas
+                DFS_new.buscarPath(laberinto, 1, 13, path,5);
+                int pathIndex = path.size() - 2;
+                System.out.println(pathIndex);
+                System.out.println(path);
+                //DFS_old.searchPath(laberinto, 14, 1, 1, 13, 5);
                 repaint();
             }
         });
@@ -124,16 +132,22 @@ public class Tablero extends JFrame{
                     //Ahora vamos a dibujar la bolita en el tablero
                     g.setColor(Color.red);
                     g.fillOval(columna * 30, fila * 30, 28, 28);
-                }/*
-                else if(laberinto[fila][columna] == 9)
-                {
-                    g.setColor(Color.blue);
-                    g.fillOval(columna * 30, fila * 30, 30, 30);
-                }*/
+                }
             }        
         }
+        /*
+         //finalmente, vamos a dibujar la lista de rutas
+         for (int p = 0; p < path.size(); p += 2) {
+             int pathX = path.get(p);
+             int pathY = path.get(p + 1);
+             g.setColor(Color.GREEN);
+             g.fillRect(pathX * 30, pathY * 30, 30, 30);
+             g.setColor(Color.BLACK);
+             g.drawRect(30 * pathX, 30 * pathY, 30, 30);
+         }
         g.setColor(Color.blue);
         g.fillOval(pathX*30, pathY*30, 30, 30);
+        */
     }
      
     public void drawAgent(Graphics h,int x, int y)
