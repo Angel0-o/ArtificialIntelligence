@@ -29,6 +29,7 @@ public class Tablero extends JFrame{
     int pathX = 1; //recorre en columnas
     int pathY = 14; //reccorre en filas
     List<Integer> path = new ArrayList<Integer>();
+    boolean resultado = false;
     private JPanel contentPane;
     
     int [][] laberinto = 
@@ -61,23 +62,163 @@ public class Tablero extends JFrame{
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
-        JButton puntoSalto = new JButton("Regla 1");
-        puntoSalto.addActionListener(new ActionListener() {
+        JButton regla1 = new JButton("Regla 1");
+        regla1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                generaPuntoSalto(15);
+                System.out.println("Ejecutando Regla 1....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(20);
+                    System.out.println("Encontrando ruta con 10 puntos de salto");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 10);
+                    System.out.println("Resultado: " + resultado);
+                    repaint();
+                    System.out.println("Dibujando ruta encontrada");
+                while(resultado == false)
+                {
+                    reset();
+                    System.out.println("Ejecutando Regla 1....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(20);
+                    System.out.println("Encontrando ruta con 10 puntos de salto");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 10);
+                    System.out.println("Resultado: " + resultado);
+                    repaint();
+                    System.out.println("Dibujando ruta encontrada");
+                }
             }
         });
-        puntoSalto.setBounds(35, 482, 90, 25);
-        contentPane.add(puntoSalto);
+        regla1.setBounds(35, 482, 90, 25);
+        contentPane.add(regla1);
         
-        JButton Resolver = new JButton("Regla 2");
-        Resolver.addActionListener(new ActionListener() {
+        JButton regla2 = new JButton("Regla 2");
+        regla2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                generaPuntoSalto(15);
+                System.out.println("Ejecutando Regla 2....");
+                System.out.println("Generando puntos de salto..");
+                generaPuntoSalto(20);
+                System.out.println("Encontrando ruta con 10 puntos de salto sin pasar 2 veces por el mismo lugar");
+                resultado = DFS.buscarPath(laberinto, 1, 13, path,10);
+                repaint();
+                System.out.println("Dibujando ruta encontrada");
+                while(resultado == false)
+                {
+                    reset();
+                    System.out.println("Ejecutando Regla 2....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(20);
+                    System.out.println("Encontrando ruta con 10 puntos de salto sin pasar 2 veces por el mismo lugar");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 10);
+                    repaint();
+                    System.out.println("Dibujando ruta encontrada");
+                }
             }
         });
-        Resolver.setBounds(135, 482, 90, 25);
-        contentPane.add(Resolver);
+        regla2.setBounds(135, 482, 90, 25);
+        contentPane.add(regla2);
+        
+        JButton regla3 = new JButton("Regla 3");
+        regla3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Ejecutando Regla 3....");
+                System.out.println("Generando puntos de salto..");
+                generaPuntoSalto(25);
+                System.out.println("Encontrando ruta con 15 puntos de salto sin pasar 2 veces por el mismo lugar");
+                resultado = DFS.buscarPath(laberinto, 1, 13, path,15);
+                System.out.println("Dibujando ruta encontrada");
+                repaint();
+                while(resultado == false)
+                {
+                    reset();
+                    System.out.println("Ejecutando Regla 3....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(25);
+                    System.out.println("Encontrando ruta con 15 puntos de salto sin pasar 2 veces por el mismo lugar");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 15);
+                    System.out.println("Dibujando ruta encontrada");
+                    repaint();
+                }
+            }
+        });
+        regla3.setBounds(235, 482, 90, 25);
+        contentPane.add(regla3);
+        
+        JButton regla4 = new JButton("Regla 4");
+        regla4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Ejecutando Regla 4....");
+                System.out.println("Generando puntos de salto..");
+                generaPuntoSalto(20);
+                System.out.println("Encontrando ruta con 8 puntos de salto pasando por 3 puntos 2 veces ");
+                resultado = DFS.buscarPath(laberinto, 1, 13, path,8);
+                System.out.println("Dibujando ruta encontrada");
+                repaint();
+                while(resultado == false)
+                {
+                    reset();
+                    System.out.println("Ejecutando Regla 4....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(20);
+                    System.out.println("Encontrando ruta con 8 puntos de salto pasando por 3 puntos 2 veces ");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 8);
+                    System.out.println("Dibujando ruta encontrada");
+                    repaint();
+                }
+            }
+        });
+        regla4.setBounds(335, 482, 90, 25);
+        contentPane.add(regla4);
+        
+        JButton regla5 = new JButton("Regla 5");
+        regla5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Ejecutando Regla 5....");
+                System.out.println("Generando puntos de salto..");
+                generaPuntoSalto(10);
+                System.out.println("Encontrando ruta con 1 puntos de salto");
+                resultado = DFS.buscarPath(laberinto, 1, 13, path,1);
+                System.out.println("Dibujando ruta encontrada");
+                repaint();
+                while(resultado == false)
+                {
+                    reset();
+                    System.out.println("Ejecutando Regla 5....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(10);
+                    System.out.println("Encontrando ruta con 1 puntos de salto");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 1);
+                    System.out.println("Dibujando ruta encontrada");
+                    repaint();
+                }
+            }
+        });
+        regla5.setBounds(435, 482, 90, 25);
+        contentPane.add(regla5);
+        
+        JButton regla6 = new JButton("Regla 6");
+        regla6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Ejecutando Regla 6....");
+                System.out.println("Generando puntos de salto..");
+                generaPuntoSalto(10);
+                System.out.println("Encontrando ruta sin puntos de salto");
+                resultado = DFS.buscarPath(laberinto, 1, 13, path,0);
+                System.out.println("Dibujando ruta encontrada");
+                repaint();
+                while(resultado == false)
+                {
+                    reset();
+                    System.out.println("Ejecutando Regla 6....");
+                    System.out.println("Generando puntos de salto..");
+                    generaPuntoSalto(5);
+                    System.out.println("Encontrando ruta sin puntos de salto");
+                    resultado = DFS.buscarPath(laberinto, 1, 13, path, 0);
+                    System.out.println("Dibujando ruta encontrada");
+                    repaint();
+                }
+            }
+        });
+        regla6.setBounds(535, 482, 90, 25);
+        contentPane.add(regla6);
         
         JButton resetTab = new JButton("Reset");
         resetTab.addActionListener(new ActionListener() {
@@ -85,24 +226,21 @@ public class Tablero extends JFrame{
                 reset();
             }
         });
-        resetTab.setBounds(235, 482, 90, 25);
+        resetTab.setBounds(635, 482, 90, 25);
         contentPane.add(resetTab);
-        
+/*
         JButton resolver = new JButton("Resolver");
         resolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Bien vamos a probar DepthFirst comprobando el primer y el último elemento de la lista de rutas
-                DFS_new.buscarPath(laberinto, 1, 13, path,5);
-                int pathIndex = path.size() - 2;
-                System.out.println(pathIndex);
+                //Buscando la ruta con 10 puntos de salto
+                DFS.buscarPath(laberinto, 1, 13, path,10);
                 System.out.println(path);
-                //DFS_old.searchPath(laberinto, 14, 1, 1, 13, 5);
                 repaint();
             }
         });
-        resolver.setBounds(335, 482, 90, 25);
+        resolver.setBounds(735, 482, 90, 25);
         contentPane.add(resolver);
-        
+        */
         setBounds(0,0,800,600);
      }
      
@@ -129,25 +267,23 @@ public class Tablero extends JFrame{
                 g.drawRect(30*columna, 30*fila, 30, 30);
                 if(laberinto[fila][columna] == 3)
                 {
-                    //Ahora vamos a dibujar la bolita en el tablero
+                    //Ahora vamos a dibujar los puntos de 
                     g.setColor(Color.red);
                     g.fillOval(columna * 30, fila * 30, 28, 28);
                 }
             }        
         }
-        /*
-         //finalmente, vamos a dibujar la lista de rutas
+        
+         //finalmente, vamos a dibujar la lista de rutas    
          for (int p = 0; p < path.size(); p += 2) {
              int pathX = path.get(p);
              int pathY = path.get(p + 1);
-             g.setColor(Color.GREEN);
-             g.fillRect(pathX * 30, pathY * 30, 30, 30);
-             g.setColor(Color.BLACK);
-             g.drawRect(30 * pathX, 30 * pathY, 30, 30);
+             g.setColor(Color.red);
+             g.fillOval(pathX * 30, pathY * 30, 28, 28);
          }
         g.setColor(Color.blue);
         g.fillOval(pathX*30, pathY*30, 30, 30);
-        */
+        
     }
      
     public void drawAgent(Graphics h,int x, int y)
@@ -197,6 +333,8 @@ public class Tablero extends JFrame{
         this.pathX = pathX;
         this.pathY = pathY;
         this.laberinto = laberinto;
+        this.path.removeAll(path);
+        this.resultado = false;
         repaint();
     }
     
@@ -208,27 +346,6 @@ public class Tablero extends JFrame{
         //g.dispose();
         Thread.sleep(1000);
         //t1.drawAgent(g, 1, 12);
-        /*
-        int[][] laber = 
-                {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9},
-                {1, 2, 0, 0, 3, 2, 2, 3, 0, 3, 2, 2, 1},
-                {1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 2, 1},
-                {1, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 1},
-                {1, 2, 0, 0, 3, 2, 2, 3, 0, 2, 0, 0, 1},
-                {1, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1},
-                {1, 3, 2, 2, 3, 0, 0, 2, 0, 3, 2, 2, 1},
-                {1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 2, 0, 0, 0, 0, 0, 0, 2, 3, 0, 2, 1},
-                {1, 3, 0, 0, 2, 0, 2, 0, 0, 2, 0, 0, 1},
-                {1, 0, 3, 2, 0, 0, 0, 0, 0, 2, 0, 0, 1},
-                {1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-                };
-        t1.laberinto = laber;
-        t1.repaint();
-        */
         //Thread.sleep(1000);
         //t1.drawAgent(g, 2, 12);
         /*
